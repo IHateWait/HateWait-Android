@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.login.LoginRegisterViewPagerActivity
-import com.example.hatewait.storeinfo.StoreInfoUpdate2
+import com.example.hatewait.storeinfo.StoreInfoUpdate
 import kotlinx.android.synthetic.main.activity_store_menu.*
 import org.jetbrains.anko.startActivity
 
@@ -82,7 +82,7 @@ class StoreMenu : AppCompatActivity() {
         }
 
         store_info_update_button2.setOnClickListener {
-            startActivity<StoreInfoUpdate2>()
+            startActivity<StoreInfoUpdate>()
         }
 
         customer_list_button2.setOnClickListener{
