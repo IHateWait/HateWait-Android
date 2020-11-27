@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".storeinfo.StoreInfoUpdate2">
+        tools:context=".storeinfo.StoreInfoUpdate">
 
 
     <LinearLayout
