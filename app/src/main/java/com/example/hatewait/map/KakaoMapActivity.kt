@@ -1,7 +1,7 @@
 package com.example.hatewait.map
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.Manifest
 import android.content.Context
 import android.content.DialogInterface
@@ -29,6 +29,7 @@ import com.example.hatewait.R
 import com.example.hatewait.model.HaitWaitRestaurantRequestData
 import com.example.hatewait.model.Restaurant
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitLogin
 import com.kakao.util.maps.helper.Utility
 import kotlinx.android.synthetic.main.activity_kakao_map.*
 import net.daum.mf.map.api.CalloutBalloonAdapter
@@ -534,7 +535,7 @@ class KakaoMapActivity : AppCompatActivity(), CurrentLocationEventListener,
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.MapService.requestHateWaitRestaurant()
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitMap::class.java).requestHateWaitRestaurant()
             .enqueue(object : Callback<HaitWaitRestaurantRequestData> {
                 override fun onFailure(call: Call<HaitWaitRestaurantRequestData>, t: Throwable) {
                     Log.d("retrofit2 회원지도 :: ", "연결실패 $t")

@@ -1,7 +1,7 @@
 package com.example.hatewait.login
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -25,6 +25,8 @@ import com.example.hatewait.model.MemberLoginResponseData
 import com.example.hatewait.model.StoreLoginRequestData
 import com.example.hatewait.model.StoreLoginResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.MyApi.RetrofitAdapter.retrofit
+import com.example.hatewait.retrofit2.RetrofitLogin
 import com.example.hatewait.signup.SelectSignUp
 import com.example.hatewait.store.StoreMenu
 import com.nhn.android.naverlogin.OAuthLogin
@@ -142,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.LoginService.requestMemberLogin(customerLoginData)
+                retrofit(this)!!.create(RetrofitLogin::class.java).requestMemberLogin(customerLoginData)
                     .enqueue(object : Callback<MemberLoginResponseData> {
                         override fun onFailure(call: Call<MemberLoginResponseData>, t: Throwable) {
                             Log.d("retrofit2 손님로그인 :: ", "연결실패 $t")
@@ -209,7 +211,7 @@ class MainActivity : AppCompatActivity() {
                     newInstance().show(supportFragmentManager, "")
                 }
 
-                MyApi.LoginService.requestStoreLogin(storeLoginData)
+                retrofit(this)!!.create(RetrofitLogin::class.java).requestStoreLogin(storeLoginData)
                     .enqueue(object : Callback<StoreLoginResponseData> {
                         override fun onFailure(call: Call<StoreLoginResponseData>, t: Throwable) {
                             Log.d("retrofit2 가게로그인 :: ", "연결실패 $t")

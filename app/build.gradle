@@ -132,6 +132,9 @@ android {
 
 //        implementation 'com.github.heremaps:oksse:0.9.0'
         implementation 'com.saladevs:rxsse:0.2.0'
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+        implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.0.1'
+        implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
     }
 }

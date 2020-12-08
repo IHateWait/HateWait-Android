@@ -1,7 +1,7 @@
 package com.example.hatewait.register
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.example.hatewait.R
 import com.example.hatewait.model.*
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitRegister
 import kotlinx.android.synthetic.main.activity_members_register.*
 import kotlinx.android.synthetic.main.activity_members_register.people_number_editText
 import kotlinx.android.synthetic.main.activity_members_register.people_number_layout
@@ -113,7 +114,7 @@ class MemberRegister : Fragment() {
             if (fragment == null || (!(fragment?.isAdded)!!)) {
                 newInstance().show(requireActivity().supportFragmentManager, "")
             }
-                MyApi.RegisterService.requestCheckMemberId(CheckMemberIdRequestData(userId))
+            MyApi.RetrofitAdapter.retrofit(context)!!.create(RetrofitRegister::class.java).requestCheckMemberId(CheckMemberIdRequestData(userId))
                 .enqueue(object : Callback<CheckMemberIdResponseData> {
                     override fun onFailure(
                         call: Call<CheckMemberIdResponseData>,

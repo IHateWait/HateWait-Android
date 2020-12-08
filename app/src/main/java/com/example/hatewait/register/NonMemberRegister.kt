@@ -1,7 +1,7 @@
 package com.example.hatewait.register
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +15,8 @@ import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.model.NonMemberRegisterRequestData
 import com.example.hatewait.model.NonMemberRegisterResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
+import com.example.hatewait.retrofit2.RetrofitRegister
 import kotlinx.android.synthetic.main.activity_non_members_reigster.*
 import org.jetbrains.anko.support.v4.startActivity
 import retrofit2.Call
@@ -156,7 +158,7 @@ class NonMemberRegister : androidx.fragment.app.Fragment() {
             if (fragment == null || (!(fragment?.isAdded)!!)) {
                 newInstance().show(requireActivity().supportFragmentManager, "")
             }
-                MyApi.RegisterService.requestNonMemberRegister(storeInfo.id, nonMemberRegisterData)
+            MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitRegister::class.java).requestNonMemberRegister(storeInfo.id, nonMemberRegisterData)
                 .enqueue(object : Callback<NonMemberRegisterResponseData> {
                     override fun onFailure(
                         call: Call<NonMemberRegisterResponseData>,

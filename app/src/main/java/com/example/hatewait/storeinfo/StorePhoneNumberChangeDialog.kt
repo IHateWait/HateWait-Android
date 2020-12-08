@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_store_phone_change_dialog.*
@@ -57,7 +58,7 @@ class StorePhoneNumberChangeDialog : DialogFragment() {
                     if (fragment == null || (!(fragment?.isAdded)!!)) {
                         newInstance().show(requireActivity().supportFragmentManager, "")
                     }
-                        MyApi.UpdateService.requestStorePhoneUpdate(
+                    MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitInfoUpdate::class.java).requestStorePhoneUpdate(
                         id = storeInfo!!.id,
                         phone = updatedStorePhone
                     )

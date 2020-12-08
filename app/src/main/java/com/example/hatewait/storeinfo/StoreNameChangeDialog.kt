@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
+import com.example.hatewait.retrofit2.RetrofitLogin
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_store_info_update.*
@@ -59,7 +61,7 @@ class StoreNameChangeDialog : AppCompatDialogFragment() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(requireActivity().supportFragmentManager, "")
                 }
-                    MyApi.UpdateService.requestStoreNameUpdate(
+                MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitInfoUpdate::class.java).requestStoreNameUpdate(
                     id = storeInfo!!.id,
                     name = updatedStoreName
                 )

@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +17,9 @@ import com.example.hatewait.model.CouponInfoData
 import com.example.hatewait.model.CouponResponseData
 import com.example.hatewait.model.CouponUnableRequestData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitCoupon
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
+import com.example.hatewait.retrofit2.RetrofitLogin
 import com.zyyoona7.wheel.WheelView
 import kotlinx.android.synthetic.main.activity_setting_stamp_coupon.*
 import retrofit2.Call
@@ -46,7 +49,7 @@ class SettingStampCoupon : AppCompatActivity() {
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.CouponService.requestStoreCouponInfo(
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitCoupon::class.java).requestStoreCouponInfo(
             storeInfo.id
         )
             .enqueue(object : Callback<CouponResponseData?> {
@@ -139,7 +142,7 @@ class SettingStampCoupon : AppCompatActivity() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.UpdateService.requestStoreCouponUnableUpdate(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestStoreCouponUnableUpdate(
                     CouponUnableRequestData(storeInfo!!.id)
                 )
                     .enqueue(object : Callback<MyApi.onlyMessageResponseData> {
@@ -176,7 +179,7 @@ class SettingStampCoupon : AppCompatActivity() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.UpdateService.requestStoreCouponEnableUpdate(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestStoreCouponEnableUpdate(
                     CouponEnableRequestData(
                         id = storeInfo!!.id, coupon_information = CouponInfoData(
                             benefit_description_text_view.text.toString(),

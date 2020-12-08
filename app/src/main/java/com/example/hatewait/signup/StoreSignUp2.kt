@@ -1,6 +1,6 @@
 package com.example.hatewait.signup
 
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -13,9 +13,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.hatewait.R
-import com.example.hatewait.model.StoreSignUpResponseData
 import com.example.hatewait.retrofit2.MyApi
-import kotlinx.android.synthetic.main.activity_signup1.*
+import com.example.hatewait.retrofit2.RetrofitLogin
+import com.example.hatewait.retrofit2.RetrofitRegister
+import com.example.hatewait.retrofit2.RetrofitSignUp
 import kotlinx.android.synthetic.main.activity_signup1.register_toolbar
 import kotlinx.android.synthetic.main.activity_signup2.*
 import retrofit2.Call
@@ -54,7 +55,7 @@ class StoreSignUp2 : AppCompatActivity() {
 
         button_continue.setOnClickListener {
 
-            MyApi.SignUpService.requestCheckStoreId(id_input_edit_text.text.toString())
+            MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitSignUp::class.java).requestCheckStoreId(id_input_edit_text.text.toString())
                 .enqueue(object : Callback<MyApi.onlyMessageResponseData> {
                     override fun onFailure(
                         call: Call<MyApi.onlyMessageResponseData>,

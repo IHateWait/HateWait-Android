@@ -1,7 +1,7 @@
 package com.example.hatewait.member
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +13,8 @@ import com.example.hatewait.login.LoginInfo.memberInfo
 import com.example.hatewait.model.CouponListInfo
 import com.example.hatewait.model.CouponListResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitCoupon
+import com.example.hatewait.retrofit2.RetrofitLogin
 import com.yarolegovich.discretescrollview.DSVOrientation
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
@@ -82,7 +84,7 @@ class CouponFragment : Fragment(),
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(requireActivity().supportFragmentManager, "")
         }
-            MyApi.CouponService.requestCouponList(
+        MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitCoupon::class.java).requestCouponList(
             memberInfo!!.id,
             storeId!!
         )

@@ -1,7 +1,7 @@
 package com.example.hatewait.member
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +14,8 @@ import com.example.hatewait.login.LoginInfo.memberInfo
 import com.example.hatewait.model.StoreListInfo
 import com.example.hatewait.model.StoreListResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitCoupon
+import com.example.hatewait.retrofit2.RetrofitLogin
 import kotlinx.android.synthetic.main.activity_store_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,7 +68,7 @@ class StoreList : AppCompatActivity() {
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.CouponService.requestStoreList(
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitCoupon::class.java).requestStoreList(
             memberInfo!!.id
         )
             .enqueue(object : Callback<StoreListResponseData> {

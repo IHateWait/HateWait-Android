@@ -1,7 +1,7 @@
 package com.example.hatewait.store
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +23,8 @@ import com.example.hatewait.model.CallWaitingResponseData
 import com.example.hatewait.model.DeleteWaitingResponseData
 import com.example.hatewait.model.WaitingInfo
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitLogin
+import com.example.hatewait.retrofit2.RetrofitWaiting
 import kotlinx.android.synthetic.main.waiting_list_row.view.*
 import org.jetbrains.anko.backgroundColorResource
 import retrofit2.Call
@@ -91,7 +93,7 @@ class SwipeRecyclerViewAdapter(
                     val ft = (context as StoreWaitingList).supportFragmentManager.beginTransaction()
                     newInstance().show(ft, "")
                 }
-                MyApi.WaitingService.requestWaitingCall(
+                MyApi.RetrofitAdapter.retrofit(waitingListContext)!!.create(RetrofitWaiting::class.java).requestWaitingCall(
                     storeInfo.id,
                     items[position].phone
                 )
@@ -272,7 +274,7 @@ class SwipeRecyclerViewAdapter(
                             (context as StoreWaitingList).supportFragmentManager.beginTransaction()
                         newInstance().show(ft, "")
                     }
-                    MyApi.WaitingService.requestDeleteWaiting(
+                    MyApi.RetrofitAdapter.retrofit(waitingListContext)!!.create(RetrofitWaiting::class.java).requestDeleteWaiting(
                         userId = storeInfo!!.id,
                         deleteWaiting = DeleteWaitingResponseData(items[position].phone, true)
                     )
@@ -331,7 +333,7 @@ class SwipeRecyclerViewAdapter(
                             (context as StoreWaitingList).supportFragmentManager.beginTransaction()
                         newInstance().show(ft, "")
                     }
-                    MyApi.WaitingService.requestDeleteWaiting(
+                    MyApi.RetrofitAdapter.retrofit(waitingListContext)!!.create(RetrofitWaiting::class.java).requestDeleteWaiting(
                         userId = storeInfo!!.id,
                         deleteWaiting = DeleteWaitingResponseData(items[position].phone, false)
                     )

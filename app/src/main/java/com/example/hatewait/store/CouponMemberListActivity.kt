@@ -1,8 +1,8 @@
 package com.example.hatewait.store
 
 import CouponMemberViewAdapter
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +15,8 @@ import com.example.hatewait.login.LoginInfo
 import com.example.hatewait.model.CouponMember
 import com.example.hatewait.model.CouponMemberListResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitCoupon
+import com.example.hatewait.retrofit2.RetrofitLogin
 import kotlinx.android.synthetic.main.activity_coupon_member_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,7 +88,7 @@ class CouponMemberListActivity : AppCompatActivity() {
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.CouponService.requestCouponMemberList(
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitCoupon::class.java).requestCouponMemberList(
             LoginInfo.storeInfo.id
         ).enqueue(object : Callback<CouponMemberListResponseData> {
             override fun onFailure(

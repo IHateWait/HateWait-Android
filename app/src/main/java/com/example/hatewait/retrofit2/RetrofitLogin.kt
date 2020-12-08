@@ -10,12 +10,12 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface RetrofitLogin {
-    @POST("/login/members/test")
+    @POST("/login/members")
     fun requestMemberLogin(
         @Body memberLogin: MemberLoginRequestData
     ): Call<MemberLoginResponseData>
 
-    @POST("/login/stores/test")
+    @POST("/login/stores")
     fun requestStoreLogin(
         @Body storeLogin: StoreLoginRequestData
     ): Call<StoreLoginResponseData>

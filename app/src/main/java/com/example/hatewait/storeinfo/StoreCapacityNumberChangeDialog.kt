@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.fragment.app.DialogFragment
 import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
+import com.example.hatewait.retrofit2.RetrofitLogin
 import kotlinx.android.synthetic.main.fragmet_store_capacity_change_dialog.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,7 +47,7 @@ class StoreCapacityNumberChangeDialog : DialogFragment() {
                     if (fragment == null || (!(fragment?.isAdded)!!)) {
                         newInstance().show(requireActivity().supportFragmentManager, "")
                     }
-                        MyApi.UpdateService.requestStoreCapacityUpdate(
+                    MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitInfoUpdate::class.java).requestStoreCapacityUpdate(
                         id = storeInfo!!.id,
                         maximum_capacity = updatedStoreCapacity
                     )

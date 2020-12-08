@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -17,12 +17,11 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_store_info_update.*
-import kotlinx.android.synthetic.main.activity_store_info_update2.*
 import kotlinx.android.synthetic.main.activity_store_introduce_change_dialog.*
-import kotlinx.android.synthetic.main.fragment_store_phone_change_dialog.*
 import org.jetbrains.anko.layoutInflater
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,7 +65,7 @@ class StoreIntroduceChangeDialog : AppCompatDialogFragment() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(requireActivity().supportFragmentManager, "")
                 }
-                    MyApi.UpdateService.requestStoreInfoUpdate(
+                MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitInfoUpdate::class.java).requestStoreInfoUpdate(
                     id = storeInfo!!.id,
                     info = updatedStoreIntroduce
                 )

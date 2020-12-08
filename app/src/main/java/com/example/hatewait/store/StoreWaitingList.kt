@@ -1,7 +1,7 @@
 package com.example.hatewait.store
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +25,8 @@ import com.example.hatewait.model.NonMemberRegisterResponseData
 import com.example.hatewait.model.WaitingInfo
 import com.example.hatewait.model.WaitingListResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitRegister
+import com.example.hatewait.retrofit2.RetrofitWaiting
 import com.saladevs.rxsse.RxSSE
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_store_waiting_list.*
@@ -212,7 +214,7 @@ class StoreWaitingList : AppCompatActivity() {
                         if (fragment == null || (!(fragment?.isAdded)!!)) {
                             newInstance().show(supportFragmentManager, "")
                         }
-                        MyApi.RegisterService.requestNonMemberRegister(
+                        MyApi.RetrofitAdapter.retrofit(this.context)!!.create(RetrofitRegister::class.java).requestNonMemberRegister(
                             storeInfo.id,
                             nonMemberRegisterData
                         )
@@ -289,7 +291,7 @@ fun getWaitingList() {
 //    if (fragment == null || (!(fragment?.isAdded)!!)) {
 //        newInstance().show(waitingListContext, "")
 //    }
-    MyApi.WaitingService.requestWaitingList(storeInfo!!.id)
+    MyApi.RetrofitAdapter.retrofit(waitingListContext)!!.create(RetrofitWaiting::class.java).requestWaitingList(storeInfo!!.id)
         .enqueue(object : Callback<WaitingListResponseData> {
             override fun onFailure(call: Call<WaitingListResponseData>, t: Throwable) {
 

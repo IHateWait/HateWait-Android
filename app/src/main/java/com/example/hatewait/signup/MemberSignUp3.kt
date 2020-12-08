@@ -1,22 +1,21 @@
 package com.example.hatewait.signup
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import com.example.hatewait.R
-import com.example.hatewait.member.MemberMenu
 import com.example.hatewait.model.MemberSignUpRequestData
 import com.example.hatewait.model.MemberSignUpResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
+import com.example.hatewait.retrofit2.RetrofitSignUp
 import kotlinx.android.synthetic.main.activity_customer_register3.*
 import kotlinx.android.synthetic.main.activity_customer_register3.button_finish
-import org.jetbrains.anko.startActivity
 import retrofit2.*
 
 
@@ -69,7 +68,7 @@ class MemberSignUp3 : AppCompatActivity() {
             if (fragment == null || (!(fragment?.isAdded)!!)) {
                 newInstance().show(supportFragmentManager, "")
             }
-                MyApi.SignUpService.requestCustomerSignUp(customerSignUpData)
+            MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitSignUp::class.java).requestCustomerSignUp(customerSignUpData)
                 .enqueue(object : Callback<MemberSignUpResponseData> {
                     override fun onFailure(call: Call<MemberSignUpResponseData>, t: Throwable) {
 

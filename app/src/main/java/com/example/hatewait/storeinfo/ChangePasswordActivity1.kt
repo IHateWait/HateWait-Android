@@ -1,9 +1,8 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +15,7 @@ import com.example.hatewait.model.MemberLoginResponseData
 import com.example.hatewait.model.StoreLoginRequestData
 import com.example.hatewait.model.StoreLoginResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitLogin
 import kotlinx.android.synthetic.main.activity_change_password.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +48,7 @@ class ChangePasswordActivity1 : AppCompatActivity() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.LoginService.requestStoreLogin(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitLogin::class.java).requestStoreLogin(
                     StoreLoginRequestData(
                         userId,
                         password_input_edit_text.text.toString()
@@ -100,7 +100,7 @@ class ChangePasswordActivity1 : AppCompatActivity() {
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.LoginService.requestMemberLogin(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitLogin::class.java).requestMemberLogin(
                     MemberLoginRequestData(
                         userId,
                         password_input_edit_text.text.toString()

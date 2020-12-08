@@ -1,7 +1,7 @@
 package com.example.hatewait.memberinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.example.hatewait.R
 import com.example.hatewait.login.LoginInfo.memberInfo
 import com.example.hatewait.model.MemberInfoData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
 import com.example.hatewait.storeinfo.ChangePasswordActivity1
 import kotlinx.android.synthetic.main.activity_customer_info_update.*
 import retrofit2.Call
@@ -38,7 +39,7 @@ class MemberInfoUpdate : AppCompatActivity(),MemberPhoneNumberChangeDialog.Dialo
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.UpdateService.requestMemberInfo(memberInfo!!.id)
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestMemberInfo(memberInfo!!.id)
             .enqueue(object : Callback<MemberInfoData> {
                 override fun onFailure(call: Call<MemberInfoData>, t: Throwable) {
                     Log.d("retrofit2 손님정보조회 :: ", "연결실패 $t")

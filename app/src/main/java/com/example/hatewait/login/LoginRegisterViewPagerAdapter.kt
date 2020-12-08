@@ -1,7 +1,7 @@
 package com.example.hatewait.login
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -18,6 +18,8 @@ import com.example.hatewait.register.NameCheckDialogFragment
 import com.example.hatewait.register.RegisterCheck
 import com.example.hatewait.register.RegisterErrorDialogFragment
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitLogin
+import com.example.hatewait.retrofit2.RetrofitRegister
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_members_register.*
 import kotlinx.android.synthetic.main.activity_register_tab_pager.*
@@ -71,7 +73,7 @@ class LoginRegisterViewPagerActivity : AppCompatActivity(),
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.RegisterService.requestMemberRegister(storeInfo.id, memberRegisterData)
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitRegister::class.java).requestMemberRegister(storeInfo.id, memberRegisterData)
             .enqueue(object : Callback<MemberRegisterResponseData> {
                 override fun onFailure(
                     call: Call<MemberRegisterResponseData>,

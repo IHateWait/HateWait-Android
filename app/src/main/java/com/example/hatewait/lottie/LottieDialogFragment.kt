@@ -1,4 +1,4 @@
-
+package com.example.hatewait.lottie
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -32,7 +32,7 @@ class LottieDialogFragment : DialogFragment() {
 
 
     companion object {
-        var fragment:LottieDialogFragment? = null
+        var fragment: LottieDialogFragment? = null
         fun newInstance(): LottieDialogFragment {
             if(fragment == null){
                 val args = Bundle()

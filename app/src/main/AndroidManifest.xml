@@ -77,7 +77,7 @@
         <activity android:name=".store.StoreWaitingList" />
         <activity android:name=".storeinfo.BusinessHourPick" />
         <activity
-                android:name=".Splash"
+                android:name=".lottie.Splash"
                 android:noHistory="true"
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

@@ -1,7 +1,7 @@
 package com.example.hatewait.storeinfo
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.example.hatewait.address.AddressDialogFragment
 import com.example.hatewait.login.LoginInfo.storeInfo
 import com.example.hatewait.model.storeInfoData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitInfoUpdate
 import com.example.hatewait.signup.addressDialog
 import kotlinx.android.synthetic.main.activity_store_info_update2.*
 import retrofit2.Call
@@ -65,7 +66,7 @@ class StoreInfoUpdate : AppCompatActivity(), StoreNameChangeDialog.DialogListene
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.UpdateService.requestStoreAddressUpdate(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestStoreAddressUpdate(
                     id = storeInfo!!.id,
                     address = it
                 ).enqueue(object : Callback<MyApi.onlyMessageResponseData> {
@@ -120,7 +121,7 @@ class StoreInfoUpdate : AppCompatActivity(), StoreNameChangeDialog.DialogListene
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.UpdateService.requestStoreInfo(storeInfo!!.id)
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestStoreInfo(storeInfo!!.id)
             .enqueue(object : Callback<storeInfoData> {
                 override fun onFailure(call: Call<storeInfoData>, t: Throwable) {
                     Log.d("retrofit2 가게정보조회 :: ", "연결실패 $t")
@@ -180,7 +181,7 @@ class StoreInfoUpdate : AppCompatActivity(), StoreNameChangeDialog.DialogListene
                 if (fragment == null || (!(fragment?.isAdded)!!)) {
                     newInstance().show(supportFragmentManager, "")
                 }
-                MyApi.UpdateService.requestStoreBusinessHourUpdate(
+                MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitInfoUpdate::class.java).requestStoreBusinessHourUpdate(
                     id = storeInfo!!.id,
                     business_hour = data?.getStringExtra("UPDATED_BUSINESS_TIME").toString()
                 ).enqueue(object : Callback<MyApi.onlyMessageResponseData> {

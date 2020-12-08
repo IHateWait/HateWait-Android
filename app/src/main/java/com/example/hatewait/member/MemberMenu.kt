@@ -1,7 +1,7 @@
 package com.example.hatewait.member
 
-import LottieDialogFragment.Companion.fragment
-import LottieDialogFragment.Companion.newInstance
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.fragment
+import com.example.hatewait.lottie.LottieDialogFragment.Companion.newInstance
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -21,6 +21,8 @@ import com.example.hatewait.login.LoginInfo.memberInfo
 import com.example.hatewait.memberinfo.MemberInfoUpdate
 import com.example.hatewait.model.MyWaitingResponseData
 import com.example.hatewait.retrofit2.MyApi
+import com.example.hatewait.retrofit2.RetrofitLogin
+import com.example.hatewait.retrofit2.RetrofitWaiting
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_customer_menu.*
 import org.jetbrains.anko.startActivity
@@ -136,7 +138,7 @@ class MemberMenu : AppCompatActivity() {
         if (fragment == null || (!(fragment?.isAdded)!!)) {
             newInstance().show(supportFragmentManager, "")
         }
-        MyApi.WaitingService.requestMyWaiting(memberInfo!!.id)
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitWaiting::class.java).requestMyWaiting(memberInfo!!.id)
             .enqueue(object : Callback<MyWaitingResponseData> {
                 override fun onFailure(call: Call<MyWaitingResponseData>, t: Throwable) {
 
@@ -177,7 +179,7 @@ class MemberMenu : AppCompatActivity() {
 
     // TODO RetrofitWaiting 코드 수정 후 테스트 해봐야함
     private fun cancelMyWaiting(dialog: Dialog){
-        MyApi.WaitingService.requestCancelWaiting(memberInfo!!.id)
+        MyApi.RetrofitAdapter.retrofit(this)!!.create(RetrofitWaiting::class.java).requestCancelWaiting(memberInfo!!.id)
             .enqueue(object : Callback<MyApi.onlyMessageResponseData> {
                 override fun onFailure(
                     call: Call<MyApi.onlyMessageResponseData>,
